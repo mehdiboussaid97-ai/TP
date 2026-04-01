@@ -1,5 +1,6 @@
 import numpy as np
 from matplotlib import pyplot as plt 
+import matplotlib.animation as animation
 
 #%%
 #Q1
@@ -59,4 +60,35 @@ plt.plot(tt, yy3)
 plt.subplot(2, 2,4)
 plt.plot(tt, yy4)
 
-    
+
+#%%
+#Q4
+# %matplotlib inline
+# %matplotlib qt
+
+# Fonction d'initialisation
+def init():
+    line.set_data([],[])
+    return line,
+
+def animate(i):
+    xp = np.linspace(-1, 1)
+    y = onde(1, 1, 1, xp, i)
+    line.set_data(xp, y)
+    return line,
+
+fig = plt.figure() # initialise la figure
+line, = plt.plot([],[]) # initialise la variable line
+# Note : il faut absolument la virgule a la fin de line
+# parce que plot renvoie un tuple
+plt.xlim(-1, 1)
+plt.ylim(-1,1)
+# Initialise l'echelle de l'axe x
+# Initialise l'echelle de l'axe y
+ani = animation.FuncAnimation(fig, animate, init_func=init, frames=20000,
+blit=True, interval=20, repeat=True) # fabrique l'animation
+plt.show()
+# affiche la figure
+
+#%%
+#    
